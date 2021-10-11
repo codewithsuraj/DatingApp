@@ -1,4 +1,4 @@
-import { User } from './../models/user';
+import { User } from '../_models/user';
 import { map } from 'rxjs/operators';
 import { AccountService } from './../_services/account.service';
 import { Injectable } from '@angular/core';
