@@ -1,0 +1,16 @@
+.edit-button {
+    background-color: #148a9c;
+    border: none;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    opacity: 0.8;
+}
+
+.edit-button i {
+    color: whitesmoke;
+}
+
+.edit-button:hover {
+    opacity: 1;
+}
