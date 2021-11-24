@@ -1,11 +1,14 @@
 <div class="row">
-    <div class="col-2" *ngFor="let photo of member.photos">
-        <img src="{{photo.url}}" alt="{{photo.url}}" class="img-thumbnail p-1">
-        <div class="text-center">
-            <button [disabled]="photo.isMain" (click)="setMainPhoto(photo)" [ngClass]='photo.isMain ? "btn-success active" :  "btn-outline-success" ' class="btn btn-sm">
-                Main</button>
-            <button [disabled]="photo.isMain" (click)="deletePhoto(photo.id)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+    <div class="col-2 img-wrapper" *ngFor="let photo of member.photos">
+        <img src="{{photo.url}}" alt="{{photo.url}}" class="img-thumbnail p-1" [class.not-approved]="!photo.isApproved">
+        <div class="text-center img-text" *ngIf="!photo.isApproved">
+            <span class="text-danger">Awaiting approval</span>
         </div>
+        <button [disabled]="photo.isMain || !photo.isApproved" (click)="setMainPhoto(photo)"
+            [ngClass]='photo.isMain ? "btn-success active" : "btn-outline-success"' class="btn btn-sm">Main</button>
+
+        <button [disabled]="photo.isMain" (click)="deletePhoto(photo.id)" class="btn btn-sm btn-danger"><i
+                class="fa fa-trash"></i></button>
     </div>
 </div>
 
@@ -43,7 +46,8 @@
             <tbody>
                 <tr *ngFor="let item of uploader.queue">
                     <td><strong>{{ item?.file?.name }}</strong></td>
-                    <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                    <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }}
+                        MB</td>
                 </tr>
             </tbody>
         </table>
