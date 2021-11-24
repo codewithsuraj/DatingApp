@@ -10,20 +10,22 @@ import { Message } from 'src/app/_models/message';
   styleUrls: ['./member-messages.component.css']
 })
 export class MemberMessagesComponent implements OnInit {
-  @ViewChild('messageForm') messageForm!: NgForm 
+  @ViewChild('messageForm') messageForm!: NgForm
   @Input() messages!: Message[]
   @Input() username!: string
   messageContent!: string
+  loading = false
 
-  
-  constructor(public messageService:MessageService) { }
+
+  constructor(public messageService: MessageService) { }
 
   ngOnInit(): void {
   }
 
   sendMessage() {
+    this.loading = true
     this.messageService.sendMessage(this.username, this.messageContent).then(() => {
       this.messageForm.reset()
-    })
+    }).finally(() => this.loading = false)
   }
 }
